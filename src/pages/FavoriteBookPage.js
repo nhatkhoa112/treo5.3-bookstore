@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { Nav } from 'react-bootstrap';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const BACKEND_API = process.env.REACT_APP_BACKEND_API;
 
@@ -66,18 +67,9 @@ const FavoriteBookPage = () => {
             <div className="container">
                 <div className="add-content">
                     <div className="input-wrapper">
-                        {/* <form onSubmit={handleSearchFormSubmit}>
-                            <input type="text" 
-                                placeholder="Search for a book" 
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                />
-                            
-                        </form> */}
-
                     </div>
 
-                    {books.length > 0 && (
+                    {books.length > 0 ? (
                         <ul className="results">
                             {books.map(book => (
                                 <li key={book.id} className="favorites">
@@ -120,7 +112,7 @@ const FavoriteBookPage = () => {
                                 </li>
                             ))}
                         </ul>
-                    )}
+                    ) : (<div className="filter-content "><h1>No Books in list, add more...</h1></div>)}
 
                 </div>
             </div>
