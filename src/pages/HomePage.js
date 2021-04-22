@@ -18,8 +18,8 @@ const HomePage = () => {
     const [loading, setLoading] = useState(false);
     const [books, setBooks] = useState([]);
     const [errorMsg, setErrorMsg] = useState('');
+    const [total, setTotal] = useState(100)
     const [pageNumber, setPageNumber] = useState(1);
-    let url = `${BACKEND_API}/books?_page=${pageNumber}&_limit=${limit}`;
 
     const postBookData = async (book) => {
         const response = await fetch(`${BACKEND_API}/favorites`, {
@@ -32,11 +32,11 @@ const HomePage = () => {
         status();
     }
     
-    const fetchData = async () => {
+
+    const fetchData = async (pgNum) => {
+        let url = `${BACKEND_API}/books?_page=${pgNum || pageNumber}&_limit=${limit}`;
         setLoading(true);
         try {
-        console.log(url);
-
         const response = await fetch(url);
         const data = await response.json();
         if (response.ok) {
@@ -49,7 +49,8 @@ const HomePage = () => {
         }
         setLoading(false);
     }
-    
+
+
     useEffect(() => {
 
     fetchData();
@@ -115,7 +116,7 @@ const HomePage = () => {
                 </div>
             </div>
             <div className="pagination">
-                <PaginationBar pageNumber={pageNumber} setPageNumber={setPageNumber}/>
+                <PaginationBar pageNumber={pageNumber} setPageNumber={setPageNumber} total={total} fetchData={fetchData}/>
             </div>
         </div>
     )

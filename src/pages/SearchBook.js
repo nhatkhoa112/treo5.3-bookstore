@@ -19,9 +19,11 @@ const SearchBook = () => {
     const [books, setBooks] = useState([]);
     const [errorMsg, setErrorMsg] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
+    const [total, setTotal] = useState(100)
     const [pageNumber, setPageNumber] = useState(1);
-    const [query, setQuery] =  useState('')
+
     let url = `${BACKEND_API}/books?_page=${pageNumber}&_limit=${limit}`;
+    const [query, setQuery] =  useState('')
     if (query) {
             url +=`&q=${query}`;
         }
@@ -130,7 +132,7 @@ const SearchBook = () => {
                 </div>
             </div>
             <div className="pagination">
-                <PaginationBar pageNumber={pageNumber} setPageNumber={setPageNumber}/>
+                <PaginationBar pageNumber={pageNumber} setPageNumber={setPageNumber} total={total} fetchData={fetchData}/>
             </div>
         </div>
     )
