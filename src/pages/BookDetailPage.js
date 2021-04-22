@@ -17,10 +17,10 @@ const BookDetailPage = () => {
     const { id } = useParams();
     const [loading, setLoading] = useState(false);
     const [bookDetail, setBookDetail] = useState([]);
-    const [errorMsg, setErrorMsg] = useState('');
+    const [ setErrorMsg] = useState('');
 
     const postBookData = async () => {
-        const response = await fetch(`${BACKEND_API}/favorites`, {
+        await fetch(`${BACKEND_API}/favorites`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

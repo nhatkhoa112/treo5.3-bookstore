@@ -4,7 +4,7 @@ import { Nav } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PaginationBar from '../components/PaginationBar';
-
+const bookData = require('../untils/db.json');
 
 const BACKEND_API = process.env.REACT_APP_BACKEND_API;
 const limit = 10;
@@ -17,12 +17,11 @@ const HomePage = () => {
     }
     const [loading, setLoading] = useState(false);
     const [books, setBooks] = useState([]);
-    const [errorMsg, setErrorMsg] = useState('');
-    const [total, setTotal] = useState(100)
+    const [total] = useState(100)
     const [pageNumber, setPageNumber] = useState(1);
 
     const postBookData = async (book) => {
-        const response = await fetch(`${BACKEND_API}/favorites`, {
+        await fetch(`${BACKEND_API}/favorites`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -31,22 +30,18 @@ const HomePage = () => {
             });
         status();
     }
-    
 
     const fetchData = async (pgNum) => {
+        let data
         let url = `${BACKEND_API}/books?_page=${pgNum || pageNumber}&_limit=${limit}`;
         setLoading(true);
-        try {
-        const response = await fetch(url);
-        const data = await response.json();
-        if (response.ok) {
-            setBooks(data);
-        } else {
-            setErrorMsg(`FETCH BOOKS ERROR: ${data.message}`);
+        if(process.env.NODE_ENV === 'Production' ){
+            data = bookData.books
+        }  else {
+            const response = await fetch(url);
+            data = await response.json();
         }
-        } catch (error) {
-        setErrorMsg(`FETCH BOOKS ERROR: ${error.message}`);
-        }
+        setBooks(data);
         setLoading(false);
     }
 

@@ -17,9 +17,7 @@ const SearchBook = () => {
     }
     const [loading, setLoading] = useState(false);
     const [books, setBooks] = useState([]);
-    const [errorMsg, setErrorMsg] = useState('');
-    const [searchTerm, setSearchTerm] = useState('');
-    const [total, setTotal] = useState(100)
+    const [total] = useState(100)
     const [pageNumber, setPageNumber] = useState(1);
 
     let url = `${BACKEND_API}/books?_page=${pageNumber}&_limit=${limit}`;
@@ -35,7 +33,7 @@ const SearchBook = () => {
     };
 
     const postBookData = async (book) => {
-        const response = await fetch(`${BACKEND_API}/favorites`, {
+        await fetch(`${BACKEND_API}/favorites`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -47,28 +45,19 @@ const SearchBook = () => {
     
 
 
-
     const fetchData = async () => {
         setLoading(true);
-        try {
         const response = await fetch(url);
         const data = await response.json();
-        if (response.ok) {
-            setBooks(data);
-        } else {
-            setErrorMsg(`FETCH BOOKS ERROR: ${data.message}`);
-        }
-        } catch (error) {
-        setErrorMsg(`FETCH BOOKS ERROR: ${error.message}`);
-        }
+        setBooks(data);
         setLoading(false);
     }
-    
     useEffect(() => {
 
     fetchData();
 }, []);
 
+    if(loading) return '';
 
 
 

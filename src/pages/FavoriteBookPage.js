@@ -16,11 +16,11 @@ const FavoriteBookPage = () => {
     }
     const [loading, setLoading] = useState(false);
     const [books, setBooks] = useState([]);
-    const [errorMsg, setErrorMsg] = useState('');
+    const [ setErrorMsg] = useState('');
     let url = `${BACKEND_API}/favorites?`;
     
     const onDeleteFav = async (book) => {
-        const response = await fetch(`${BACKEND_API}/favorites/${book.id}`, {
+        await fetch(`${BACKEND_API}/favorites/${book.id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
