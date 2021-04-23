@@ -35,7 +35,8 @@ const HomePage = () => {
         let data
         let url = `${BACKEND_API}/books?_page=${pgNum || pageNumber}&_limit=${limit}`;
         setLoading(true);
-        if(process.env.NODE_ENV === 'Production' ){
+        console.log(process.env.NODE_ENV )
+        if(process.env.NODE_ENV === 'development' ){
             data = bookData.books
         }  else {
             const response = await fetch(url);
