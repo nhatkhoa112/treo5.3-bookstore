@@ -63,7 +63,7 @@ const BookDetailPage = () => {
             <div className="book-detail-card container ">
                 <div className="book-img">
                     {bookDetail.imageLink ? (
-                        <img src={bookDetail.imageLink} alt={`${bookDetail.title} Poster`} />
+                        <img src={`http://localhost:5000/${bookDetail.imageLink}`} alt={`${bookDetail.title} Poster`} />
                     ) : (
                         <div className="filler-poster"></div>
                     )}
